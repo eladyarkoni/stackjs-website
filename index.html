@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>StackJS Framework</title>
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<script type="text/javascript" src="js/jquery.js"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="lib/stackjs.js"></script>
+	<script type="text/javascript" src="js/website.js"></script>
+</head>
+<body>
+	<a href="https://github.com/eladyarkoni/stackjs-framework"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_left_darkblue_121621.png" alt="Fork me on GitHub">
+	</a>
+	<div class="container">
+		<div class="row">
+			<div class="span12"><p class="st-title" align="center">StackJS Framework</p></div>
+		</div>
+		<div class="row">
+			<div class="span12">
+				<p align="center" class="st-subtitle">
+					Javascript Object Oriented Programming Framework By <a href="http://eladyarkoni.tumblr.com">Elad Yarkoni</a>
+				</p>
+			</div>
+		</div>
+		<div class="row">
+			<div class="span12">
+				<p align="center">
+					<a class="btn" onmousedown="website.switchContentPage($('#home'))">Home</a>
+					<a class="btn" onmousedown="website.switchContentPage($('#features'))">StackJS Features</a>
+					<a class="btn" onmousedown="website.switchContentPage($('#design-patterns'))">Design Patterns</a>
+					<a class="btn" onmousedown="website.switchContentPage($('#boilerplate'))">Boilerplate Download</a>
+				</p>
+			</div>
+		</div>
+		<div class="row">
+			<div class="span12">
+<!-- *******************************************************************************************************--> 
+<!-- 											Home Content 												-->
+<!-- *******************************************************************************************************--> 
+				<div class="container content" id="home">
+						<pre>
+							<code>
+Class('User',{
+	username: null,
+	password: null,
+	email: null,
+	toString: function() {
+		return this.username + ',' + this.password + ',' + this.email;
+	}
+});
+
+Class('Administrator::User',{
+	Administrator: function(username,password,email) {
+		this.username = username;
+		this.password = password;
+		thie.email = email;
+	},
+	report: function() {
+		console.log("I'm an administrator");
+	}
+});
+
+Class('Guest::User',{
+	Guest: function(username,password,email) {
+		this.username = username;
+		this.password = password;
+		thie.email = email;
+	},
+	report: function() {
+		console.log("I'm a guest");
+	}
+});
+
+//
+// Main Program
+//
+
+var newUser1 = new Administrator('root', '123456', 'root@localhost.com');
+var newUser2 = new Guest('guest', '', 'guest@localhost.com');
+newUser1.report();
+newUser2.report();
+
+							</code>
+						</pre>
+						<h2>Features</h2>
+						<ul>
+							<li>Object Oriented Programming</li>
+							<li>Automatic setter and getter generator</li>
+							<li>Inheritance</li>
+							<li>Exception Event Handling And Full Stack Trace</li>
+							<li>Object Delegations From ObjectiveC</li>
+						</ul>
+						<br>
+						<h2>More Information</h2>
+						<ul>
+							<li>This Website based on <a href="http://twitter.github.com/bootstrap/">Twitter bootstrap framework</a></li>
+							<li>StackJS is Created in <a href="http://www.sublimetext.com/">Sublime Text Editor</a></li>
+							<li>Follow <a href="https://twitter.com/#!/EladYarkoni">@EladYarkoni</a> on twitter for updates</li>
+							<li>View my <a href="http://eladyarkoni.tumblr.com">Blog</a></li>
+							<li>Fork me on <a href="">Github</a></li>
+						</ul>
+				</div>
+<!-- *******************************************************************************************************--> 
+<!-- 											Features Content 											-->
+<!-- *******************************************************************************************************--> 
+				<div class="container content" id="features">
+					<h2>Exception Handling</h2>
+					<div class="explenation">
+						StackJS can handle exceptions in your web applications flow.
+						<br>
+						Here is an example:
+					</div>
+					<pre>
+						<code>
+Class('DeathException::Exception',{
+	human: null,
+	DeathException: function(human) {
+		this.message = human.getFirstName() + " has sudden death!";
+		this.human = human;
+	}	
+});
+
+Class('Human',{
+			
+	firstName: null,
+	lastName: null,
+	age: null,
+	maxAge: null,
+	suddenDeathAge: null,
+
+	Human: function(fName,lName,age,maxAge) {
+		this.firstName = fName;
+		this.lastName = lName;
+		this.age = age;
+		this.maxAge = maxAge;
+	},
+
+	born: function() {
+		this.age = 0;
+		console.log("I'm born");
+	},
+
+	dead: function() {
+		console.log("I'm dead");
+	},
+
+	growUp: function() {
+		this.age++;	
+	},
+
+	live: function() {
+		this.born();
+		while (this.age < this.maxAge) {
+			console.log("I'm " +  this.age + " years old");
+			if ((this.suddenDeathAge !== null) && (this.suddenDeathAge == this.age)) {
+				Throw(new DeathException(this));
+			}
+			this.growUp();
+		}
+		this.dead();
+	}
+});
+
+// 
+//  Main Program
+//
+var man = new Human('Danny','smith',12,120);
+
+man.setSuddenDeathAge(50);
+
+// bind exception event
+Catch('DeathException', function(ex){
+	ex.getHuman().setMaxAge(ex.getHuman().getSuddenDeathAge());
+});
+
+// live throws an exception
+man.live();
+						</code>
+					</pre>
+					<h2>Automatic setter and getter generator</h2>
+					<div class="explenation">
+						StackJS creates setters and getters for each class data member.
+					</div>
+					<pre>
+						<code>
+Class('Car', {
+	engineSize: null,
+	model: null,
+	manufacturer: null,
+	maxSpeed: null,
+	Car: function(manufacturer) {
+		this.manufacturer = manufacturer;
+	}
+});
+
+var car = new Car('Toyota');
+car.setModel(2007);
+console.log(car.getManufacturer());
+						</code>
+					</pre>
+					<h2>Object Delegation</h2>
+					<div class="explenation">
+						StackJS adopt the object delegation mechanizm from objectiveC.
+						<br>
+						Object could be a delegate of another object and handle its events.
+					</div>
+					<pre>
+						<code>
+Class("Engine",{
+	
+	size: null,
+	
+	Engine: function(size) {
+		this.size = size;
+	},
+	
+	start: function() {
+		// engine did broken after start
+		this.callDelegate("didBrokenPart",[this]);	
+	}
+});
+
+Class("Car",{
+
+	engine: null,
+
+	Car: function() {
+		this.engine = new Engine(1600);
+		// make this car the engine delegate
+		this.engine.setDelegate(this);
+	},
+
+	drive: function() {
+		console.log("start drive");
+		this.engine.start();
+	},
+
+	stop: function() {
+		console.log("car is stopped");
+	},
+
+	// broken engine stops the car
+	didBrokenPart: function(object) {
+		this.stop();
+	}
+});
+						</code>
+					</pre>
+				</div>
+<!-- *******************************************************************************************************--> 
+<!-- 											Design Patterns Content 									-->
+<!-- *******************************************************************************************************-->
+				<div class="container content" id="design-patterns">
+					<h2>The Visitor Design Pattern</h2>
+					<pre>
+						<code>
+Class("Shape",{
+	x: null,
+	y: null,
+	Shape: function(x,y) {
+		this.x = x;
+		this.y = y;
+	}
+});
+
+Class("Rectangle::Shape",{
+	edgeSize: null,
+	Rectangle: function(x,y,edgeSize){
+		this.x = x;
+		this.y = y;
+		this.edgeSize = edgeSize;
+	},
+	accept: function(visitor) {
+		visitor.visitRectange(this);
+	}
+});
+
+Class("Circle::Shape",{
+	radius: null,
+	Circle: function(x,y,radius) {
+		this.x = x;
+		this.y = y;
+		this.radius = radius;
+	},
+	accept: function(visitor) {
+		visitor.visitCircle(this);
+	}
+});
+
+
+Class("CanvasVisitor",{
+	visitCircle: function(circle) {
+		var mycanvas = document.createElement('canvas');
+		mycanvas.style.position = 'absolute';
+		mycanvas.style.left = circle.getX() - circle.getRadius() + 'px';
+		mycanvas.style.top = circle.getY() - circle.getRadius() + 'px';
+		mycanvas.style.width = (circle.getRadius() * 2) + 'px';
+		mycanvas.style.height = (circle.getRadius() * 2) + 'px';
+		var ctx = mycanvas.getContext('2d');
+		ctx.beginPath();
+		ctx.arc(circle.getRadius(), circle.getRadius(), circle.getRadius(), 0, 2 * Math.PI, false);
+		ctx.fillStyle = "#8ED6FF";
+		ctx.fill();
+		document.body.appendChild(mycanvas);
+	},
+	visitRectange: function(rectange) {
+		var mycanvas = document.createElement('canvas');
+		mycanvas.style.position = 'absolute';
+		mycanvas.style.left = rectange.getX() + 'px';
+		mycanvas.style.top = rectange.getY() + 'px';
+		mycanvas.style.width = rectange.getEdgeSize() + 'px';
+		mycanvas.style.height = rectange.getEdgeSize() + 'px';
+		var ctx = mycanvas.getContext('2d');
+		ctx.beginPath();
+		ctx.rect(0, 0, rectange.getX() + rectange.getEdgeSize(), rectange.getY() + rectange.getEdgeSize());
+		ctx.fillStyle = '#8ED6FF';
+		ctx.fill();
+		ctx.strokeStyle = 'black';
+		document.body.appendChild(mycanvas);
+	}
+});
+
+/*
+*
+*	Main
+*/
+
+var shapes = [
+	new Circle(100,50,50),
+	new Rectangle(300,50,100)
+];
+
+for (var i = 0; i < shapes.length; i++) {
+	shapes[i].accept(new CanvasVisitor());
+}
+						</code>
+					</pre>
+					<h2>The Singleton Design Pattern</h2>
+					<div class="explenation">
+						StackJS has made for you the _sharedInstance property for each class
+					</div>
+					<pre>
+						<code>
+Class('Application', {
+			
+	applicationName: null,
+
+	getInstance: function() {
+		return this._sharedInstance;
+	},
+
+	start: function() {
+		console.log('application has started');
+	}
+});
+
+//
+// Main Program
+//
+
+var myApplication = new Application().getInstance();
+var anotherMyApplication = new Application().getInstance();
+myApplication.setApplicationName('StackJS Application');
+console.log(anotherMyApplication.getApplicationName()); // prints 'StackJS Application'
+						</code>
+					</pre>
+					<h2>The Factory Design Pattern</h2>
+					<pre>
+						<code>
+Class('PrivateCar', {
+	manufacturer: null,
+	PrivateCar: function(manufacturer) {
+		this.manufacturer = manufacturer;
+	}
+});
+
+Class('Truck', {
+	manufacturer: null,
+	Truck: function(manufacturer) {
+		this.manufacturer = manufacturer;
+	}
+});
+
+Class('Bus', {
+	manufacturer: null,
+	Bus: function(manufacturer) {
+		this.manufacturer = manufacturer;
+	}
+});
+
+Class('VehicleFactory', {
+	createPrivateCar: function(manufacturer) {
+		return new PrivateCar(manufacturer); 
+	},
+	createTruck: function(manufacturer) {
+		return new Truck(manufacturer); 
+	},
+	createBus: function(manufacturer) {
+		return new Bus(manufacturer); 
+	}
+});
+						</code>
+					</pre>
+					<h2>The Observer Design Pattern</h2>
+					<div class="explenation">
+						This example implements the NSNotificationCenter mechanizm from the <a href="http://developer.apple.com/library/ios/#DOCUMENTATION/Cocoa/Reference/Foundation/Classes/NSNotificationCenter_Class/Reference/Reference.html">iOS SDK</a>
+					</div>
+					<pre>
+						<code>
+// Notification Object
+Class('NSNotification', {
+	
+	object: null,
+	name: null,
+	NSNotification: function(name, object) {
+		this.name = name;
+		this.object = object;
+	}
+
+});
+
+// Notification Center
+Class('NSNotificationCenter', {
+	
+	_observers: [],
+	
+	addObserver: function(observer, method, notificationName) {
+		this._observers.push({
+			name: notificationName,
+			observer: observer,
+			method: method
+		});
+	},
+
+	postNotificationName: function(name, object) {
+		for (var i = 0; i < this._observers.length; i++) {
+			if (this._observers[i].name === name) {
+				this._observers[i].observer[this._observers[i].method](new NSNotification(name, object));
+			}
+		}
+	},
+
+	// make the notification center as singleton and get default center
+	defaultCenter: function() {
+		return this._sharedInstance;
+	}
+});
+
+Class('Human', {
+	name: null,
+	sick: function() {
+		new NSNotificationCenter().defaultCenter().postNotificationName('humanSick', this);
+	}
+});
+
+Class('Doctor', {
+	Doctor: function() {
+		new NSNotificationCenter().defaultCenter().addObserver(this, 'humanIsSick', 'humanSick');
+	},
+	humanIsSick: function(nsnotification) {
+		console.log("Hi " + nsnotification.getObject().getName() + ", I will take care of you");
+	}
+});
+
+
+						</code>
+					</pre>
+					<div class="explenation">
+						More Design Patterns will be available soon.
+					</div>
+				</div>
+<!-- *******************************************************************************************************--> 
+<!-- 											Boilerplate Content 										-->
+<!-- *******************************************************************************************************-->
+				<div class="container content" id="boilerplate">
+					<h2><p align="center">StackJS Boilerplate Generator</p></h2>
+					<p align="center">
+						<input id="appNameInput" class="input-xlarge focused" style="width: 400px;" type="text" placeholder="Enter your project name">
+					</p>
+					<p align="center">
+						<button class="btn btn-primary" type="submit" onclick="website.createBoilerplate()">
+						  Create Boilerplate
+						</button>
+					</p>
+					<br>
+					<div class="progress progress-striped active hidden">
+					  <div class="bar width-transition" style="width: 0;"></div>
+					</div>
+					<div class="boilerplate-container">
+						
+					</div>
+				</div>  
+			</div>
+		</div>
+	</div>
+</body>
+</html>
