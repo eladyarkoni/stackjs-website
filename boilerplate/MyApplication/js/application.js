@@ -7,13 +7,9 @@
 
 Class('Application', {
 
-	applicationName: '@@@application-name@@@',
+	applicationName : '@@@application-name@@@',
 	applicationLabel: '@@@application-label@@@',
-
-	// Application initialized
-	Application: function() {
-		
-	},
+	storyBoard: new StoryBoard(),
 
 	getInstance: function() {
 		return this._sharedInstance;	
@@ -21,7 +17,8 @@ Class('Application', {
 
 	/* Dom is active */
 	didBecomeActive: function() {
-		console.log('Application is active');	
+		console.log('Application is active');
+		this.storyBoard.load();
 	}
 
 });

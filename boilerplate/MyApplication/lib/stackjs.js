@@ -239,6 +239,14 @@
 		}
 	});
 
+	Class('StoryBoard',{
+		
+		load: function(json) {
+			console.log("storyboard is activated");	
+		}
+
+	});
+
 	/*
 	*
 	*	Global Variables
