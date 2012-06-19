@@ -1,11 +1,35 @@
 (function(){
 	Class('Website', {
 
+		myCodeMirror: null,
 		currentPageElement: null,
+
+		playCode: function() {
+			var scriptElem = $('<script type="text/javascript" ></script>');
+			var code = "window['executeCode'] = function() { var scriptOutput = ''; var out = function(str){ scriptOutput += str; };" + this.myCodeMirror.getValue() + " return scriptOutput; }";
+			scriptElem.text(code);
+			$(document).append(scriptElem);
+			var result = window['executeCode']();
+			scriptElem.remove();
+			$("#code-script").text("");
+			// show modal
+			$('#code-run-modal').modal();
+			$('#code-run-modal').find(".modal-body").text(result);
+		},
+
+		loadCodeEditor: function() {
+			$("#editor").css("display", "block");
+			this.myCodeMirror = CodeMirror.fromTextArea(document.getElementById("code"), {
+				theme: 'lesser-dark',
+				lineNumbers: true,
+				matchBrackets: true
+			});
+			$("#editor").css("display", "none");
+		},
 		
 		switchContentPage: function(contentElement){
 			this.currentPageElement.css("display","none");
-			this.currentPageElement = contentElement
+			this.currentPageElement = contentElement;
 			this.currentPageElement.css("display","block");
 		},
 
@@ -108,6 +132,7 @@
 
 	$(document).ready(function(){
 		window.website = new Website();
+		window.website.loadCodeEditor();
 		website.setCurrentPageElement($("#home"));	
 	});
 })();

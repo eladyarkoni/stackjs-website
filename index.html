@@ -5,11 +5,16 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>StackJS Framework</title>
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="js/codemirror/codemirror.css">
+	<link rel="stylesheet" type="text/css" href="js/codemirror/theme/lesser-dark.css">
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<script type="text/javascript" src="js/jquery.js"></script>
 	<script type="text/javascript" src="js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="lib/stackjs.js"></script>
 	<script type="text/javascript" src="js/website.js"></script>
+	<script type="text/javascript" src="js/codemirror/codemirror.js"></script>
+	<script type="text/javascript" src="js/codemirror/mode/javascript.js"></script>
+	<script type="text/javascript" src="js/codemirror/util/javascript-hint.js"></script>
 </head>
 <body>
 	<a href="https://github.com/eladyarkoni/stackjs-website/tree/master/lib"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub">
@@ -32,6 +37,7 @@
 					<a class="btn" onmousedown="website.switchContentPage($('#features'))">StackJS Features</a>
 					<a class="btn" onmousedown="website.switchContentPage($('#design-patterns'))">Design Patterns</a>
 					<a class="btn" onmousedown="website.switchContentPage($('#boilerplate'))">Boilerplate Download</a>
+					<a class="btn" onmousedown="website.switchContentPage($('#editor'))">Try it</a>
 				</p>
 			</div>
 		</div>
@@ -497,9 +503,63 @@ Class('Doctor', {
 					<div class="boilerplate-container">
 						
 					</div>
+				</div>
+<!-- *******************************************************************************************************--> 
+<!-- 											editor		 												-->
+<!-- *******************************************************************************************************-->
+				<div class="container content" id="editor">
+					<span class="h2">StackJS Playground</span>
+					<div  id="editor-placeholder">
+						<textarea id="code" name="code" style="display: none; ">
+// Use out(str) method to print the results
+
+Class('Human', {
+	firstName: null,
+	lastName: null,
+	Human: function(fname, lname) {
+		this.firstName = fname;
+		this.lastName = lname;
+	},
+	talk: function() {
+		out("Hi, My name is " + this.firstName + ". Nice to meet you.");
+	}
+});
+
+var human = new Human('john','smith');
+human.talk();
+
+						</textarea>
+					</div>
+					<span class="btn btn-primary" style="display: block; width: 70px;" onclick="website.playCode()">Play</span>
+					<div class="modal hide" id="code-run-modal">
+					  <div class="modal-header">
+					    <button type="button" class="close" data-dismiss="modal">×</button>
+					    <div>StackJS playground result</div>
+					  </div>
+					  <div class="modal-body">
+					    
+					  </div>
+					  <div class="modal-footer">
+					    <a href="#" class="btn" data-dismiss="modal">Close</a>
+					  </div>
+					</div>
 				</div>  
 			</div>
 		</div>
 	</div>
+	<!-- Google Analytics Code-->
+	<script type="text/javascript">
+
+	  var _gaq = _gaq || [];
+	  _gaq.push(['_setAccount', 'UA-32750506-1']);
+	  _gaq.push(['_trackPageview']);
+
+	  (function() {
+	    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	  })();
+
+	</script>
 </body>
 </html>
