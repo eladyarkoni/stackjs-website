@@ -1,6 +1,6 @@
 /**
 *
-*	StackJS Framework Version 0.0.1
+*	StackJS Framework Version 0.0.2
 *	Author: Elad Yarkoni
 *
 *
@@ -24,6 +24,14 @@
 	*
 	**/
 	var _classes = {};
+
+	/**
+	*
+	*	STACKJS shared objects holder
+	*
+	**/
+	var _sharedObjects = {};
+
 	/**
 	*
 	*	STACKJS exception callbacks holder
@@ -49,6 +57,35 @@
 			name: className,
 			extend: extend
 		};
+	};
+
+	/**
+	*
+	*	STACKJS Event Manager
+	*
+	**/
+	var EventManager = {
+
+		_observers: {},
+
+		addObserver: function(eventName, delegate, callback) {
+			if (typeof(this._observers[eventName]) === 'undefined') {
+				this._observers[eventName] = [];
+			}
+			this._observers[eventName].push({
+				delegate: delegate,
+				callback: callback
+			});
+		},
+
+		postEvent: function(eventName, retValue) {
+			var observerHandlers = this._observers[eventName];
+			if (typeof(observerHandlers) !== 'undefined') {
+				for (var i = 0; i < observerHandlers.length; i++) {
+					observerHandlers[i].callback.apply(observerHandlers[i].delegate, [retValue]);
+				}
+			}
+		}
 	};
 
 	/**
@@ -104,8 +141,8 @@
 	var Throw = function(exceptionObject) {
 		Stack.printStackTrace(exceptionObject);
 		Stack.clear();
-		if (typeof(_exceptionCallbacks[exceptionObject._className]) !== 'undefined') {
-			_exceptionCallbacks[exceptionObject._className](exceptionObject);	
+		if (typeof(_exceptionCallbacks[exceptionObject._class]) !== 'undefined') {
+			_exceptionCallbacks[exceptionObject._class](exceptionObject);	
 		} else {
 			// throw exceptionObject.toString();	
 		}
@@ -136,27 +173,73 @@
 		if (typeof(extendsClassName) === 'undefined') {
 			extendsClassName = Defaults.defaultObjectName;	
 		}
-		
 
 		//
+		// get all extended classes 
+		//
+		var extendedClasses = [];
+		var extendsTemp = extendsClassName;
+		while (extendsTemp !== Defaults.defaultObjectName) {
+			extendedClasses.push(extendsTemp);
+			extendsTemp = _classes[extendsTemp].prototype._extends;
+		}
+		extendedClasses.reverse();
+
+		//
+		// Add annotations
+		//
+		var classPropertiesAnnotations = {};
+		for (var property in data) {
+			// handle annotations
+			if (property.charAt(0) === '@') {
+				var matches = property.match(/(\w+)\s*\(\s*(\w+)\s*\)/);
+				var propertyName = matches[2];
+				var annotationName = matches[1];
+				var annotation = {
+					annotation: annotationName,
+					value: data[property] 
+				};
+				classPropertiesAnnotations[propertyName] = annotation;
+			}
+		}
+
+		// 
 		// class empty function function
 		//
-		_classes[name] = function(){
+		_classes[name] = function() {
+
+			// identify creation of new object
+			if (this.constructor !== _classes[name]) {
+				if (typeof(_sharedObjects[name]) === 'undefined') {
+					_sharedObjects[name] = new _classes[name]();	
+				}
+				return _sharedObjects[name];
+			}
+
+			if (typeof(extendedClasses) !== 'undefined') {
+				for (var i = 0; i < extendedClasses.length; i++) {
+					if (typeof(this[extendedClasses[i]]) !== 'undefined') {
+						this[extendedClasses[i]].apply(this,arguments);
+					}
+				}
+			}
+			
 			// active class constructors
 			if (typeof(this[name]) !== 'undefined') {
 				this[name].apply(this,arguments);	
-			} else if (typeof(this[extendsClassName]) !== 'undefined') {
-				this[extendsClassName].apply(this,arguments);	
 			}
-
 		};
+
 
 		//
 		// Copy Extended class to new class
 		//
 		for (var proto in _classes[extendsClassName].prototype) {
-			_classes[name].prototype[proto] = _classes[extendsClassName].prototype[proto];
+			if ((proto.charAt(0) !== "_") && (proto.charAt(0) !== "@")) {
+				_classes[name].prototype[proto] = _classes[extendsClassName].prototype[proto];	
+			}
 		}
+
 
 		//
 		// Modify Class Methods
@@ -165,7 +248,7 @@
 			if ((typeof(data[propertyName]) !== 'function')) {
 				// create getter
 				var getterName = "get" + propertyName.charAt(0).toUpperCase() + propertyName.slice(1);
-				if ((typeof(data[getterName]) !== 'function') && (propertyName.charAt(0) !== '_')) {
+				if ((typeof(data[getterName]) !== 'function') && (propertyName.charAt(0) !== '_') && (propertyName.charAt(0) !== '@')) {
 					data[getterName] = (function(originalProperty){
 						return function(){
 							Stack.push(name, originalProperty);
@@ -177,7 +260,7 @@
 				}
 				// create setter
 				var setterName = "set" + propertyName.charAt(0).toUpperCase() + propertyName.slice(1);
-				if ((typeof(data[setterName]) !== 'function') && (propertyName.charAt(0) !== '_')) {
+				if ((typeof(data[setterName]) !== 'function') && (propertyName.charAt(0) !== '_') && (propertyName.charAt(0) !== '@')) {
 					data[setterName] = (function(originalProperty){
 						return function(object){
 							Stack.push(name, originalProperty);
@@ -199,14 +282,21 @@
 			}
 		}
 
+		//
 		// convert data object to class
+		//
 		for (var propertyName in data) {
 			_classes[name].prototype[propertyName] = data[propertyName];
 		}
-		// adding class name
-		_classes[name].prototype["_className"] = name;
-		// adding singleton instance
-		_classes[name].prototype["_sharedInstance"] = new _classes[name]();
+
+		// adding more data instance
+		_classes[name].prototype["_extends"] = extendsClassName;
+		_classes[name].prototype["_extendsList"] = extendedClasses;
+		_classes[name].prototype["_class"] = name;
+		_classes[name].prototype["_annotations"] = classPropertiesAnnotations;
+
+
+		// export to global
 		window[name] = _classes[name];
 	};
 
@@ -216,8 +306,6 @@
 	*
 	*********************************************************/
 	Class(Defaults.defaultObjectName, {
-		
-		_className: Defaults.defaultObjectName,
 
 		delegate: null,
 
@@ -235,7 +323,7 @@
 			this.message = message;
 		},
 		toString: function() {
-			return "Exception: " + this._className + " '" + this.message + "'";
+			return "Exception: " + this._class + " '" + this.message + "'";
 		}
 	});
 

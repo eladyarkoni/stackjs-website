@@ -14,22 +14,19 @@
 		
 		Class('DOM', {
 
-			getInstance: function() {
-				return this._sharedInstance;
-			},
-
 			bindOnloadEvent: function() {
 				var _self = this;
 				document.body.onload = function() {
 					_self.callDelegate('didBecomeActive');
 				}
 			}
+
 		});
 
 		// Main Application
 		(function(){
-			var domObject = new DOM().getInstance();
-			domObject.setDelegate(new Application());
+			var domObject = DOM();
+			domObject.setDelegate(Application());
 			domObject.bindOnloadEvent();
 		})();
 	</script>
