@@ -110,8 +110,8 @@ newUser2.report();
 						<br>
 						<h2>StackJS Versions</h2>
 						<ul>
-							<li>StackJS <a href="https://github.com/eladyarkoni/stackjs-website/tree/stackjs-framework-v0.0.1/lib">Version 0.0.1</a> is available
-							</li> 
+							<li>StackJS <a href="https://github.com/eladyarkoni/stackjs-website/tree/stackjs-framework-v0.0.2/lib">Version 0.0.2</a> is available
+							</li>
 						</ul>
 				</div>
 <!-- *******************************************************************************************************--> 
@@ -351,17 +351,13 @@ for (var i = 0; i < shapes.length; i++) {
 					</pre>
 					<h2>The Singleton Design Pattern</h2>
 					<div class="explenation">
-						StackJS has made for you the _sharedInstance property for each class
+						StackJS has its own implementation of singleton classes, just omit the 'new' declaration and your OK.
 					</div>
 					<pre>
 						<code>
 Class('Application', {
 			
 	applicationName: null,
-
-	getInstance: function() {
-		return this._sharedInstance;
-	},
 
 	start: function() {
 		console.log('application has started');
@@ -372,8 +368,8 @@ Class('Application', {
 // Main Program
 //
 
-var myApplication = new Application().getInstance();
-var anotherMyApplication = new Application().getInstance();
+var myApplication = Application();
+var anotherMyApplication = Application();
 myApplication.setApplicationName('StackJS Application');
 console.log(anotherMyApplication.getApplicationName()); // prints 'StackJS Application'
 						</code>
@@ -452,24 +448,20 @@ Class('NSNotificationCenter', {
 				this._observers[i].observer[this._observers[i].method](new NSNotification(name, object));
 			}
 		}
-	},
-
-	// make the notification center as singleton and get default center
-	defaultCenter: function() {
-		return this._sharedInstance;
 	}
+
 });
 
 Class('Human', {
 	name: null,
 	sick: function() {
-		new NSNotificationCenter().defaultCenter().postNotificationName('humanSick', this);
+		NSNotificationCenter().postNotificationName('humanSick', this);
 	}
 });
 
 Class('Doctor', {
 	Doctor: function() {
-		new NSNotificationCenter().defaultCenter().addObserver(this, 'humanIsSick', 'humanSick');
+		NSNotificationCenter().addObserver(this, 'humanIsSick', 'humanSick');
 	},
 	humanIsSick: function(nsnotification) {
 		console.log("Hi " + nsnotification.getObject().getName() + ", I will take care of you");
