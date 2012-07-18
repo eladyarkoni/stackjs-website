@@ -349,6 +349,44 @@ for (var i = 0; i < shapes.length; i++) {
 }
 						</code>
 					</pre>
+					<h2>The Prototype Design Pattern</h2>
+					<div class="explenation">
+						StackJS base object has the clone method.
+					</div>
+					<pre>
+						<code>
+Class('Car', {
+	
+	type: null,
+
+	Car: function(type) {
+		this.type = type;
+	}
+});
+
+Class('ToyotaFactory', {
+
+	prototypeObject: null,
+
+	ToyotaFactory: function() {
+		this.prototypeObject = new Car('Toyota');
+	},
+
+	createCars: function(size) {
+		var carsArray = [];
+		for (var i = 0; i < size; i++) {
+			carsArray.push(this.prototypeObject.clone());
+		}
+		return carsArray;
+	}
+
+});
+
+var toyotaFactory = new ToyotaFactory();
+var toyotaCars = toyotaFactory.createCars(50);
+
+						</code>
+					</pre>
 					<h2>The Singleton Design Pattern</h2>
 					<div class="explenation">
 						StackJS has its own implementation of singleton classes, just omit the 'new' declaration and your OK.
