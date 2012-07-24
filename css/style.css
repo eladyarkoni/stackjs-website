@@ -12,10 +12,10 @@ body {
 
 .st-title {
 	color: #ffffff;
-	font-size: 52px;
-	font-weight: bold;
+	font-size: 62px;
 	text-shadow: 10px 10px 10px #000;
 	cursor: pointer;
+	font-family: 'Black Ops One', cursive;
 }
 
 .st-subtitle {
