@@ -49,46 +49,43 @@
 				<div class="container content" id="home">
 						<pre>
 							<code>
-Class('User',{
-	username: null,
-	password: null,
-	email: null,
+Class("Human", {
+	
+	firstname: null,
+	lastname: null,
+
 	toString: function() {
-		return this.username + ',' + this.password + ',' + this.email;
+		return "Hi, my name is " + this.firstname + " " + this.lastname;
 	}
 });
 
-Class('Administrator::User',{
-	Administrator: function(username,password,email) {
-		this.username = username;
-		this.password = password;
-		thie.email = email;
+Class("Doctor::Human", {
+	
+	// C'tor
+	Doctor: function(fname, lname) {
+		this.firstname = fname;
+		this.lastname = lname;
 	},
-	report: function() {
-		console.log("I'm an administrator");
-	}
-});
 
-Class('Guest::User',{
-	Guest: function(username,password,email) {
-		this.username = username;
-		this.password = password;
-		thie.email = email;
+	checkPatient: function(human) {
+		return human.getFirstname() + ", you're ok!";
 	},
-	report: function() {
-		console.log("I'm a guest");
+
+	toString: function() {
+		return "Hi, my name is Dr " + this.firstname + " " + this.lastname;
 	}
+
 });
 
-//
-// Main Program
-//
+// Create new objects
+var newDoctor = new Doctor("Gregory", "House");
+var newPatient = new Human();
 
-var newUser1 = new Administrator('root', '123456', 'root@localhost.com');
-var newUser2 = new Guest('guest', '', 'guest@localhost.com');
-newUser1.report();
-newUser2.report();
+// automatic setters and getters generator
+newPatient.setFirstname("John");
+newPatient.setLastname("Smith");
 
+newDoctor.checkPatient(newPatient);
 							</code>
 						</pre>
 						<h2>Features</h2>
