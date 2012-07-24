@@ -117,75 +117,47 @@ newDoctor.checkPatient(newPatient);
 				<div class="container content" id="features">
 					<h2>Exception Handling</h2>
 					<div class="explenation">
-						StackJS can handle exceptions in your web applications flow.
+						StackJS supports exceptions and manage your application call stack.
 						<br>
-						Here is an example:
+						In case of an exception, a full stack trace will be printed to the browser console.
 					</div>
 					<pre>
 						<code>
-Class('DeathException::Exception',{
+// Define new exception
+Class("StillAliveException::Exception", {
 	human: null,
-	DeathException: function(human) {
-		this.message = human.getFirstName() + " has sudden death!";
+	StillAliveException: function(human) {
 		this.human = human;
-	}	
-});
-
-Class('Human',{
-			
-	firstName: null,
-	lastName: null,
-	age: null,
-	maxAge: null,
-	suddenDeathAge: null,
-
-	Human: function(fName,lName,age,maxAge) {
-		this.firstName = fName;
-		this.lastName = lName;
-		this.age = age;
-		this.maxAge = maxAge;
-	},
-
-	born: function() {
-		this.age = 0;
-		console.log("I'm born");
-	},
-
-	dead: function() {
-		console.log("I'm dead");
-	},
-
-	growUp: function() {
-		this.age++;	
-	},
-
-	live: function() {
-		this.born();
-		while (this.age < this.maxAge) {
-			console.log("I'm " +  this.age + " years old");
-			if ((this.suddenDeathAge !== null) && (this.suddenDeathAge == this.age)) {
-				Throw(new DeathException(this));
-			}
-			this.growUp();
-		}
-		this.dead();
+		this.message = "Human is still alive";
 	}
 });
 
-// 
-//  Main Program
-//
-var man = new Human('Danny','smith',12,120);
-
-man.setSuddenDeathAge(50);
-
-// bind exception event
-Catch('DeathException', function(ex){
-	ex.getHuman().setMaxAge(ex.getHuman().getSuddenDeathAge());
+Class("Human", {
+	firstname: null,
+	lastname: null,
+	godmode: false,
+	Human: function(fname,lname) {
+		this.firstname = fname;
+		this.lastname = lname;
+	},
+	kill: function(human) {
+		if (human.getGodmode()) {
+			Throw(new StillAliveException(human));
+		}
+	}
 });
 
-// live throws an exception
-man.live();
+// Main
+var killer = new Human("Tony", "Soprano");
+var victim = new Human("John", "Smith");
+victim.setGodmode(true);
+
+// register exception events by exception type
+Catch('StillAliveException', function(ex) {
+	/* Handle still alive exception */
+});
+
+killer.kill(victim);
 						</code>
 					</pre>
 					<h2>Automatic setter and getter generator</h2>
