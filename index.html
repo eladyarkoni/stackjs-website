@@ -551,6 +551,22 @@ Class('ShoppingList', {
 					</div>
 					<pre>
 						<code>
+Class('TableView::View', {
+	
+	// View class rendering method
+	render: function() {
+		this.clearViews();
+		this.addClasses("table-view");
+		for (var i = 0; i < this.getModel().size(); i++) {
+			this.addViews('$', new TableCellView(i));
+		}
+	}
+
+});
+						</code>
+					</pre>
+					<pre>
+						<code>
 Class('TableCellView::View', {
 	
 	index: null,
@@ -573,23 +589,7 @@ Class('TableCellView::View', {
 			this.callDelegate("shoppingCartItemClicked", [this.index]);
 		}
 	}
-});
-						</code>
-					</pre>
-					<pre>
-						<code>
-Class('TableView::View', {
-	
-	// View class rendering method
-	render: function() {
-		this.clearViews();
-		this.addClasses("table-view");
-		for (var i = 0; i < this.getModel().size(); i++) {
-			this.addViews('$', new TableCellView(i));
-		}
-	}
-
-});
+});							
 						</code>
 					</pre>
 					<h2>The Controller</h2>
