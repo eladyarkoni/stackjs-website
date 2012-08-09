@@ -1,0 +1,59 @@
+body {
+	margin: 0px;
+}
+
+.main-page {
+
+}
+
+.search-bar {
+	width: 100%;
+	border-bottom: 1px solid #bdbdbd;
+	background-color: #f5f5f5;
+}
+
+.search-bar input {
+	width: 200px;
+	height: 30px;
+	margin: 20px;
+}
+
+.search-bar button {
+	height: 35px;
+	width: 70px;
+	border: 1px #bdbdbd solid;
+	cursor: pointer;
+	background-color: #bdbdbd;
+	color: #ffffff;
+}
+
+.search-bar button:hover {
+	background-color: #A4A4A4;
+}
+
+.result-view {
+	padding: 10px;
+	width: 600px;
+}
+
+.result-view div {
+	margin-bottom: 10px
+}
+
+.result-view .movie-name {
+	font-family: Arial;
+	font-size: 22px;
+	font-weight: bold;
+	color: #000000;
+}
+
+.result-view .movie-description {
+	font-family: Arial;
+	font-size: 18px;
+	color: #bdbdbd;
+}
+
+.result-view .movie-image {
+	width: 100%;
+	height: 500px;
+}

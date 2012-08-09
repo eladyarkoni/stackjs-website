@@ -27,10 +27,15 @@
 			$("#editor").css("display", "none");
 		},
 		
-		switchContentPage: function(contentElement){
+		switchContentPage: function(contentElement) {
 			this.currentPageElement.css("display","none");
 			this.currentPageElement = contentElement;
 			this.currentPageElement.css("display","block");
+			var _self = this;
+			this.currentPageElement.css("opacity", "0");
+			setTimeout(function(){
+				_self.currentPageElement.css("opacity", "1");
+			}, 50);
 		},
 
 		createBoilerplate: function() {
@@ -87,20 +92,6 @@
 				$(".boilerplate-container").append(code);	
 			});
 
-			$.get("boilerplate/MyApplication/js/notification-center.js",function(data){
-				data = data.replace(/@@@application-label@@@/g,applicationLabel);
-				data = data.replace(/@@@application-name@@@/g,applicationName);
-				$(".boilerplate-container").append($('<span class="explenation">'+applicationName+'/js/notification-center.js</span>'));
-				var downloadButton = $('<span class="btn">Download</span>');
-				$(".boilerplate-container").append(downloadButton);
-				var code = $("<pre/>").append("<code />");
-				downloadButton.mouseup(function(){
-					_self.downloadFile('notification-center.js',code)
-				});
-				code.text(data);
-				$(".boilerplate-container").append(code);	
-			});
-
 			$.get("boilerplate/MyApplication/css/application.css",function(data){
 				data = data.replace(/@@@application-label@@@/g,applicationLabel);
 				data = data.replace(/@@@application-name@@@/g,applicationName);
@@ -124,15 +115,15 @@
 					_self.downloadFile('stackjs.min.js',code)
 				});
 				code.text(data);
-				$(".boilerplate-container").append(code);	
+				$(".boilerplate-container").append(code);
 			});
-		}	
+		}
 
 	});
 
 	$(document).ready(function(){
 		window.website = new Website();
 		window.website.loadCodeEditor();
-		website.setCurrentPageElement($("#home"));	
+		website.setCurrentPageElement($("#home"));
 	});
 })();

@@ -5,16 +5,18 @@
 *
 */
 
-Class('Application', {
+/*		Application Model		*/
 
-	applicationName : '@@@application-name@@@',
-	applicationLabel: '@@@application-label@@@',
-	storyBoard: new StoryBoard(),
+
+/*		Application Object		*/
+Class('Application::Controller', {
+
+	view: new View(),
+	model: new Model(),
 
 	/* Dom is active */
 	didBecomeActive: function() {
-		console.log('Application is active');
-		this.storyBoard.load();
+		Viewport().addViews('$', this.view);
 	}
 
 });

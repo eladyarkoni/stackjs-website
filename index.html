@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>StackJS Framework</title>
+	<meta charset="utf-8">
+	<meta name="description" content="StackJS - Javascript Object Oriented Programming Framework">
+	<meta name="robots" content="INDEX/FOLLOW">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="js/codemirror/codemirror.css">
 	<link rel="stylesheet" type="text/css" href="js/codemirror/theme/lesser-dark.css">
@@ -22,7 +24,7 @@
 	</a>
 	<div class="container">
 		<div class="row">
-			<div class="span12"><p class="st-title" align="center">StackJS Framework</p></div>
+			<div class="span12"><p class="st-title" align="center">{StackJS: Framework}</p></div>
 		</div>
 		<div class="row">
 			<div class="span12">
@@ -37,6 +39,7 @@
 					<a class="btn" onmousedown="website.switchContentPage($('#home'))">Home</a>
 					<a class="btn" onmousedown="website.switchContentPage($('#features'))">StackJS Features</a>
 					<a class="btn" onmousedown="website.switchContentPage($('#design-patterns'))">Design Patterns</a>
+					<a class="btn btn-danger" onmousedown="website.switchContentPage($('#web-application'))">Web Application MVC</a>
 					<a class="btn" onmousedown="website.switchContentPage($('#boilerplate'))">Boilerplate Download</a>
 					<a class="btn" onmousedown="website.switchContentPage($('#editor'))">Try it</a>
 				</p>
@@ -96,6 +99,7 @@ newDoctor.checkPatient(newPatient);
 							<li>Inheritance</li>
 							<li>Exception Event Handling And Full Stack Trace</li>
 							<li>Object Delegations From ObjectiveC</li>
+							<li class="marked">Web Application MVC integrated framework</li>
 						</ul>
 						<br>
 						<h2>More Information</h2>
@@ -108,7 +112,7 @@ newDoctor.checkPatient(newPatient);
 						<br>
 						<h2>StackJS Versions</h2>
 						<ul>
-							<li>StackJS <a href="https://github.com/eladyarkoni/stackjs-website/tree/stackjs-framework-v0.0.2/lib">Version 0.0.2</a> is available
+							<li>StackJS <a href="https://github.com/eladyarkoni/stackjs-website/tree/stackjs-framework-v0.1.0/lib">Version 0.1.0</a> is available
 							</li>
 						</ul>
 				</div>
@@ -475,13 +479,155 @@ Class('Doctor', {
 		console.log("Hi " + nsnotification.getObject().getName() + ", I will take care of you");
 	}
 });
-
-
 						</code>
 					</pre>
 					<div class="explenation">
 						More Design Patterns will be available soon.
 					</div>
+				</div>
+
+<!-- *******************************************************************************************************--> 
+<!-- 											Web Application MVC Content 										-->
+<!-- *******************************************************************************************************-->
+				<div class="container content" id="web-application">
+					<h2>StackJS Application Framework</h2>
+					<div class="explenation">
+						StackJS framework helps you to build web and mobile applications easily, based on model-view-controller design pattern.
+						StackJS keeps your application code readable and makes your developement process swift and simple.
+					</div>
+					<h3><a onmousedown="website.switchContentPage($('#api'))">API Documentation</a></h3>
+					<h2>StackJS Application Architecture</h2>
+					<div class="explenation application-architecture-image"></div>
+					<h2>The Model</h2>
+					<div class="explenation">
+						The model represents the data structure.
+					</div>
+					<h3>Example</h3>
+					<div class="explenation">
+						Shopping list model with items and quantity for each item. 
+					</div>
+					<pre>
+						<code>
+Class('ShoppingList', {
+	
+	shoppingList: [],
+
+	addItem: function(name, quantity) {
+		this.shoppingList.push({
+			name: name,
+			quantity: quantity
+		});	
+	},
+
+	removeItemByName: function(name) {
+		for (var i = 0; i < this.shoppingList.length; i++) {
+			if (this.shoppingList[i].name === name) {
+				this.shoppingList.splice(i, 1);
+			}
+		}
+	},
+
+	getItem: function(index) {
+		return this.shoppingList[i];
+	},
+
+	size: function() {
+		return this.shoppingList.length;
+	}
+});
+						</code>
+					</pre>
+					<h2>The View</h2>
+					<div class="explenation">
+						The view object manages the DOM element.
+						<br>
+						View objects should inherit from StackJS View class.
+					</div>
+					<h3>Example</h3>
+					<div class="explenation">
+						The shopping list will be rendered inside a table view.
+						<br>
+						This example defines two views, one represents the cell view and the second is for the table view. 
+					</div>
+					<pre>
+						<code>
+Class('TableCellView::View', {
+	
+	index: null,
+
+	TableCellView: function(index) {
+		this.index = index;
+	},
+	
+	render: function: function() {
+		this.addClasses("table-cell", "no-border");
+		this.addViews('&lt;span&gt;$&lt;/span&gt;&lt;span&gt;$&lt;/span&gt;', 
+			this.getModel().getItem(this.index).name,
+			this.getModel().getItem(this.index).quantity
+		);
+		this.addEvent("span", "onclick", "tableCellClicked");
+	},
+
+	handleEvents: function(evt, eventName) {
+		if (eventName === "tableCellClicked") {
+			this.callDelegate("shoppingCartItemClicked", [this.index]);
+		}
+	}
+});
+						</code>
+					</pre>
+					<pre>
+						<code>
+Class('TableView::View', {
+	
+	// View class rendering method
+	render: function() {
+		this.clearViews();
+		this.addClasses("table-view");
+		for (var i = 0; i < this.getModel().size(); i++) {
+			this.addViews('$', new TableCellView(i));
+		}
+	}
+
+});
+						</code>
+					</pre>
+					<h2>The Controller</h2>
+					<div class="explenation">
+						The controller manages the model and the view objects.
+						<br>
+						The controller act as a delegate of its views and handle both the view and the application events.
+					</div>
+					<h3>Example</h3>
+					<div class="explenation">
+						The TableViewController class represents the table controller.
+						<br>
+						This table controller owns the view and the model, define itself as the view delegate and implements the view delegate method - shoppingCartItemClicked.
+					</div>
+					<pre>
+						<code>
+Class('TableViewController', {
+	model: null,
+	view: null,
+	// C'tor
+	TableViewController: function() {
+		this.view = new TableView();
+		this.model = new ShoppingList();
+		this.view.setDelegate(this);
+		this.view.setModel(this.model);
+		Viewport().addViews('$',this.view);
+	},
+
+	// delegation method
+	shoppingCartItemClicked: function(index) {
+		// do something...
+	}
+});
+						</code>
+					</pre>
+					<h2>Demos</h2>
+					<h3><a href="examples/task-manager" target="_new">TODO's Application</a></h3>
+					<h3><a href="examples/movie-db" target="_new">Movie DB Application</a></h3>
 				</div>
 <!-- *******************************************************************************************************--> 
 <!-- 											Boilerplate Content 										-->
@@ -547,6 +693,139 @@ human.talk();
 			</div>
 		</div>
 	</div>
+
+<!-- *******************************************************************************************************--> 
+<!-- 											API		 												-->
+<!-- *******************************************************************************************************-->
+	<div class="container content" id="api">
+		<span class="h2">API Documentation</span>
+		<hr>
+		<div class="row-fluid">
+			<div class="span3">
+				<div class="well sidebar-nav">
+		            <ul class="nav nav-list">
+		              <li class="nav-header">Web Application API</li>
+		              <li><a href="#api/view">View</a></li>
+		              <li><a href="#api/viewport">Viewport</a></li>
+		            </ul>
+		        </div>
+			</div>
+			<div class="span9">
+				<div class="well api">
+					<div class="class">
+						<a name="api/view" class="title">The View Class</a>
+						<div class="description">
+							The View class handle the dom element and has a set of methods to customize the view.
+						</div>
+						<div class="method">
+							<div class="title">this.element</div>
+							<div class="description">
+								The element property holds the dom object.
+							</div>
+						</div>
+						<div class="method">
+							<div class="title">function addClasses(class1, class2...)</div>
+							<div class="description">
+								The addClasses method set css classes to the view element.
+							</div>
+						</div>
+						<div class="method">
+							<div class="title">function getViews(selector)</div>
+							<div class="description">
+								The getViews method returns element from the view root element by giving a query selector string.
+							</div>
+						</div>
+						<div class="method">
+							<div class="title">function addViews(templateString, view1, view2...)</div>
+							<div class="description">
+								The addViews method add subviews to the view object.
+								<br>
+								The first parameter will be html string and the next parameters will be views to add in four different types: 1-string 2-boolean 3-number 4-View object.
+								<br>
+								The html string will contain the '$' signs when each '$' sign will be replaced with view parameter in the same order.
+								<br>
+								For example: 
+								<br>
+								this.addViews('&lt;div&gt;&lt;span&gt;$&lt;/span&gt;&lt;span&gt;$&lt;/span&gt;&lt;/div&gt;', "first view", new View());
+								<br>
+								add the dom element: &lt;div&gt;&lt;span&gt;first view&lt;/span&gt;&lt;span&gt;&lt;div&gt;&lt;/div&gt;&lt;/span&gt;&lt;/div&gt; to the view element.
+								<br>
+								The addViews method passes the delegate and the model of the view to the added subviews. 
+							</div>
+						</div>
+						<div class="method">
+							<div class="title">function clearViews()</div>
+							<div class="description">
+								The clearViews method make the view root element empty.
+							</div>
+						</div>
+						<div class="method">
+							<div class="title">function removeView()</div>
+							<div class="description">
+								The removeView method remove the root element from its parent view.
+							</div>
+						</div>
+						<div class="method">
+							<div class="title">function addEvent(selector, eventType, eventName)</div>
+							<div class="description">
+								The addEvent method will add a new dom event.
+								<br>
+								The selector parameter selects the element which gets the event, the eventType parameter represents the dom event name like: onclick, onmousedown, etc...
+								and the eventName parameter represents a unique name which will be sent to the view event handler. 
+							</div>
+						</div>
+						<div class="method">
+							<div class="title">function handleEvents(eventObject, eventName)</div>
+							<div class="description">
+								The handleEvents method is handle the dom events that we added earlier with the addEvent method.
+								<br>
+								When event occurs, the handleEvents method is called. the eventObject parameter gets the dom event object and the eventName gets the eventName unique string.
+								<br>
+								Each view class should override this method to handle the dom events. 
+							</div>
+						</div>
+						<div class="method">
+							<div class="title">function render()</div>
+							<div class="description">
+ 								The render method is called when the view is added as a subview to another view object or to the viewport.
+ 								<br>
+ 								Each view class should override this method to customize the view.
+							</div>
+						</div>
+					</div>
+					<div class="class">
+						<a name="api/viewport" class="title">The Viewport Class</a>
+						<div class="description">
+							The Viewport is a singleton class represents the viewport of the document.
+							<br>
+							The Viewport inherit from the View class and has the same functionality as a single view.
+							<br>
+							The main application controller should be the viewport delegate when application is initialized.
+						</div>
+						<div class="method">
+							<div class="title">function didBecomeActive() [Delegate method]</div>
+							<div class="description">
+								The didBecomeActive delegate method is called when the dom is ready. 
+							</div>
+						</div>
+						<div class="method">
+							<div class="title">function willResignActive() [Delegate method]</div>
+							<div class="description">
+								The willResignActive delegate method is called when dom event onbeforeunload is raised. 
+							</div>
+						</div>
+						<div class="method">
+							<div class="title">function willTerminate() [Delegate method]</div>
+							<div class="description">
+								The willTerminate delegate method is called when dom event onunload is raised. 
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<!-- Google Analytics Code-->
 	<script type="text/javascript">
 
