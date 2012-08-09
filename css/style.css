@@ -3,6 +3,7 @@ body {
 	margin-bottom: 50px;
 	background-image: url('../img/bg.png');
 	overflow-x: hidden;
+	overflow-y: scroll;
 	line-height: 50px;
 }
 
