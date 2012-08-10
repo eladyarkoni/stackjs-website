@@ -9,10 +9,9 @@
 
 
 /*		Application Object		*/
-Class('Application::Controller', {
+Class('ApplicationController', {
 
 	view: new View(),
-	model: new Model(),
 
 	/* Dom is active */
 	didBecomeActive: function() {
