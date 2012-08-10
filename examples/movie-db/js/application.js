@@ -52,9 +52,9 @@ Class('ResultView::View', {
 		this.clearViews();
 		this.addClasses('result-view');
 		if (! this.model.getEmpty()) {
-			this.addViews("<div class='movie-name'>$</div>", this.model.getName());
-			this.addViews("<div class='movie-description'>$</div>", this.model.getDescription());
-			this.addViews("<div class='movie-image' style='background-image: url($);' ></div>", this.model.getImage());
+			this.addViews("<div class='movie-name'>$$</div>", this.model.getName());
+			this.addViews("<div class='movie-description'>$$</div>", this.model.getDescription());
+			this.addViews("<div class='movie-image' style='background-image: url($$);' ></div>", this.model.getImage());
 		}
 	}
 });
@@ -65,9 +65,9 @@ Class('MainPage::View', {
 
 	render: function() {
 		this.addClasses("main-page");
-		this.addViews("$", new SearchBar());
+		this.addViews("$$", new SearchBar());
 		this.resultView = new ResultView();
-		this.addViews("$", this.resultView);
+		this.addViews("$$", this.resultView);
 	},
 
 	updateView: function() {
@@ -85,7 +85,7 @@ Class('Application', {
 	didBecomeActive: function() {
 		this.view.setDelegate(this);
 		this.view.setModel(this.model);
-		Viewport().addViews('$', this.view);
+		Viewport().addViews('$$', this.view);
 	},
 
 	doSearchMovie: function(movieName) {

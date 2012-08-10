@@ -558,7 +558,7 @@ Class('TableView::View', {
 		this.clearViews();
 		this.addClasses("table-view");
 		for (var i = 0; i < this.getModel().size(); i++) {
-			this.addViews('$', new TableCellView(i));
+			this.addViews('$$', new TableCellView(i));
 		}
 	}
 
@@ -577,7 +577,7 @@ Class('TableCellView::View', {
 	
 	render: function: function() {
 		this.addClasses("table-cell", "no-border");
-		this.addViews('&lt;span&gt;$&lt;/span&gt;&lt;span&gt;$&lt;/span&gt;', 
+		this.addViews('&lt;span&gt;$$&lt;/span&gt;&lt;span&gt;$$&lt;/span&gt;', 
 			this.getModel().getItem(this.index).name,
 			this.getModel().getItem(this.index).quantity
 		);
@@ -615,7 +615,7 @@ Class('TableViewController', {
 		this.model = new ShoppingList();
 		this.view.setDelegate(this);
 		this.view.setModel(this.model);
-		Viewport().addViews('$',this.view);
+		Viewport().addViews('$$',this.view);
 	},
 
 	// delegation method
@@ -742,11 +742,11 @@ human.talk();
 								<br>
 								The first parameter will be html string and the next parameters will be views to add in four different types: 1-string 2-boolean 3-number 4-View object.
 								<br>
-								The html string will contain the '$' signs when each '$' sign will be replaced with view parameter in the same order.
+								The html string will contain the '$$' signs when each '$$' sign will be replaced with view parameter in the same order.
 								<br>
 								For example: 
 								<br>
-								this.addViews('&lt;div&gt;&lt;span&gt;$&lt;/span&gt;&lt;span&gt;$&lt;/span&gt;&lt;/div&gt;', "first view", new View());
+								this.addViews('&lt;div&gt;&lt;span&gt;$$&lt;/span&gt;&lt;span&gt;$$&lt;/span&gt;&lt;/div&gt;', "first view", new View());
 								<br>
 								add the dom element: &lt;div&gt;&lt;span&gt;first view&lt;/span&gt;&lt;span&gt;&lt;div&gt;&lt;/div&gt;&lt;/span&gt;&lt;/div&gt; to the view element.
 								<br>

@@ -16,7 +16,7 @@ Class('Application::Controller', {
 
 	/* Dom is active */
 	didBecomeActive: function() {
-		Viewport().addViews('$', this.view);
+		Viewport().addViews('$$', this.view);
 	}
 
 });

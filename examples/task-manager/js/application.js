@@ -59,7 +59,7 @@ Class('TaskList', {
 Class('TaskListTableCell::View', {
 	render: function() {
 		this.addClasses("task");
-		this.addViews("<input type='checkbox' $></input><span class='$'>$</span><span class='close'>x</span>",
+		this.addViews("<input type='checkbox' $$></input><span class='$$'>$$</span><span class='close'>x</span>",
 				(this.getModel().getCompleted()) ? 'checked' : '',
 				(this.getModel().getCompleted()) ? 'checked' : '',
 				this.getModel().getLabel());
@@ -89,7 +89,7 @@ Class('TaskListTable::View', {
 		for (var i = 0; i < tasks.length; i++) {
 			var taskTableCell = new TaskListTableCell();
 			taskTableCell.setModel(tasks[i]);
-			this.addViews('$', taskTableCell);
+			this.addViews('$$', taskTableCell);
 		}
 	}
 });
@@ -99,9 +99,9 @@ Class('MainPage::View', {
 	taskListTable:  new TaskListTable(),
 	render: function() {
 		this.addClasses('todos-container');
-		this.addViews("<div class='title'>$</div>", "Todos");
+		this.addViews("<div class='title'>$$</div>", "Todos");
 		this.addViews("<input type='text' placeholder='What needs to be done?'></input>");
-		this.addViews("<div class='task-table-container'>$</div>", this.taskListTable);
+		this.addViews("<div class='task-table-container'>$$</div>", this.taskListTable);
 		this.addEvent("input", "onkeyup", "taskEnteredEvent");
 		this.addEvent("input", "onkeydown", "taskChangedEvent");
 	},
@@ -150,6 +150,6 @@ Class('Application', {
 		this.loadSavedData();
 		this.view.setDelegate(this);
 		this.view.setModel(this.model);
-		Viewport().addViews('$',this.view);
+		Viewport().addViews('$$',this.view);
 	}
 });
