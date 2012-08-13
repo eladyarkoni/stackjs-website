@@ -1,0 +1,84 @@
+body {
+	background-color: #298A08;
+}
+
+.player-view {
+	margin: 20px;
+}
+
+.player-view .name {
+	color: #ffffff;
+	font-size: 22px;
+	font-weight: bold;
+	margin-bottom: 10px;
+}
+
+.player-view .cards {
+	background-image: url('../img/b1fv.png');
+	width: 71px;
+	height: 96px;
+}
+
+.player-view .drop-zone {
+	width: 71px;
+	height: 96px;
+}
+
+.winner-message {
+	color: #ffffff;
+	font-size: 22px;
+	margin-top: 100px;
+}
+
+.card-13s {background-image: url('../img/13s.png');}
+.card-13d {background-image: url('../img/13d.png');}
+.card-13h {background-image: url('../img/13h.png');}
+.card-13c {background-image: url('../img/13c.png');}
+.card-12s {background-image: url('../img/12s.png');}
+.card-12d {background-image: url('../img/12d.png');}
+.card-12h {background-image: url('../img/12h.png');}
+.card-12c {background-image: url('../img/12c.png');}
+.card-11s {background-image: url('../img/11s.png');}
+.card-11d {background-image: url('../img/11d.png');}
+.card-11h {background-image: url('../img/11h.png');}
+.card-11c {background-image: url('../img/11c.png');}
+.card-10s {background-image: url('../img/10s.png');}
+.card-10d {background-image: url('../img/10d.png');}
+.card-10h {background-image: url('../img/10h.png');}
+.card-10c {background-image: url('../img/10c.png');}
+.card-9s {background-image: url('../img/9s.png');}
+.card-9d {background-image: url('../img/9d.png');}
+.card-9h {background-image: url('../img/9h.png');}
+.card-9c {background-image: url('../img/9c.png');}
+.card-8s {background-image: url('../img/8s.png');}
+.card-8d {background-image: url('../img/8d.png');}
+.card-8h {background-image: url('../img/8h.png');}
+.card-8c {background-image: url('../img/8c.png');}
+.card-7s {background-image: url('../img/7s.png');}
+.card-7d {background-image: url('../img/7d.png');}
+.card-7h {background-image: url('../img/7h.png');}
+.card-7c {background-image: url('../img/7c.png');}
+.card-6s {background-image: url('../img/6s.png');}
+.card-6d {background-image: url('../img/6d.png');}
+.card-6h {background-image: url('../img/6h.png');}
+.card-6c {background-image: url('../img/6c.png');}
+.card-5s {background-image: url('../img/5s.png');}
+.card-5d {background-image: url('../img/5d.png');}
+.card-5h {background-image: url('../img/5h.png');}
+.card-5c {background-image: url('../img/5c.png');}
+.card-4s {background-image: url('../img/4s.png');}
+.card-4d {background-image: url('../img/4d.png');}
+.card-4h {background-image: url('../img/4h.png');}
+.card-4c {background-image: url('../img/4c.png');}
+.card-3s {background-image: url('../img/3s.png');}
+.card-3d {background-image: url('../img/3d.png');}
+.card-3h {background-image: url('../img/3h.png');}
+.card-3c {background-image: url('../img/3c.png');}
+.card-2s {background-image: url('../img/2s.png');}
+.card-2d {background-image: url('../img/2d.png');}
+.card-2h {background-image: url('../img/2h.png');}
+.card-2c {background-image: url('../img/2c.png');}
+.card-1s {background-image: url('../img/1s.png');}
+.card-1d {background-image: url('../img/1d.png');}
+.card-1h {background-image: url('../img/1h.png');}
+.card-1c {background-image: url('../img/1c.png');}
