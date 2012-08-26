@@ -112,7 +112,7 @@ newDoctor.checkPatient(newPatient);
 						<br>
 						<h2>StackJS Versions</h2>
 						<ul>
-							<li>StackJS <a href="https://github.com/eladyarkoni/stackjs-website/tree/stackjs-framework-v0.1.1/lib">Version 0.1.1</a> is available
+							<li>StackJS <a href="https://github.com/eladyarkoni/stackjs-website/tree/stackjs-framework-v0.1.2/lib">Version 0.1.2</a> is available
 							</li>
 						</ul>
 				</div>
@@ -725,6 +725,18 @@ human.talk();
 							</div>
 						</div>
 						<div class="method">
+							<div class="title">this.elementType</div>
+							<div class="description">
+								The elementType property defines the dom element type (div, ul, li, etc.).
+							</div>
+						</div>
+						<div class="method">
+							<div class="title">this.elementClass</div>
+							<div class="description">
+								The elementClass property defines the css class name.
+							</div>
+						</div>
+						<div class="method">
 							<div class="title">function addClasses(class1, class2...)</div>
 							<div class="description">
 								The addClasses method set css classes to the view element.
@@ -802,6 +814,18 @@ human.talk();
 							The Viewport inherit from the View class and has the same functionality as a single view.
 							<br>
 							The main application controller should be the viewport delegate when application is initialized.
+						</div>
+						<div class="method">
+							<div class="title">function getWidth()</div>
+							<div class="description">
+								gets the viewport width. 
+							</div>
+						</div>
+						<div class="method">
+							<div class="title">function getHeight()</div>
+							<div class="description">
+								gets the viewport height. 
+							</div>
 						</div>
 						<div class="method">
 							<div class="title">function didBecomeActive() [Delegate method]</div>
