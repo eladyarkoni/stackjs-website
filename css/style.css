@@ -78,6 +78,11 @@ h3 {
 	text-decoration: underline;
 }
 
+.h3 {
+	text-shadow: 5px 5px 5px #000;
+	line-height: 40px;
+}
+
 .h2 {
 	text-shadow: 5px 5px 5px #000;
 	line-height: 50px;
