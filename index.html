@@ -22,6 +22,7 @@
 <body>
 	<a href="https://github.com/eladyarkoni/stackjs-website/tree/master/lib"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub">
 	</a>
+	<a class="feedback" href="https://github.com/eladyarkoni/stackjs-website/issues/new">Your Feedback...</a>
 	<div class="container">
 		<div class="row">
 			<div class="span12"><p class="st-title" align="center">{StackJS: Framework}</p></div>
@@ -112,7 +113,7 @@ newDoctor.checkPatient(newPatient);
 						<br>
 						<h2>StackJS Versions</h2>
 						<ul>
-							<li>StackJS <a href="https://github.com/eladyarkoni/stackjs-website/tree/master/lib">Version 0.1.2</a> is available
+							<li>StackJS <a href="https://github.com/eladyarkoni/stackjs-website/tree/master/lib">Version 0.2</a> is available
 							</li>
 						</ul>
 				</div>
@@ -120,49 +121,56 @@ newDoctor.checkPatient(newPatient);
 <!-- 											Features Content 											-->
 <!-- *******************************************************************************************************--> 
 				<div class="container content" id="features">
-					<h2>Exception Handling</h2>
+					<h2>The View Object</h2>
 					<div class="explenation">
-						StackJS supports exceptions and manage your application call stack.
+						The View is an integrated class since StackJS 0.1.0 which represents the dom element.
 						<br>
-						In case of an exception, a full stack trace will be printed to the browser console.
+						The View class has all you need to define your UI component.
+						<br>
+						Visit the <a onclick="website.switchContentPage($('#web-application'))">Web Application MVC</a> and the <a onclick="website.switchContentPage($('#api'))">API Documentation</a> sections for more information.
 					</div>
 					<pre>
 						<code>
-// Define new exception
-Class("StillAliveException::Exception", {
-	human: null,
-	StillAliveException: function(human) {
-		this.human = human;
-		this.message = "Human is still alive";
-	}
-});
+Class('TableView::View', {
+	
+	elementClass: 'table-view',
+	elementType: 'ul',
+	list: null,
 
-Class("Human", {
-	firstname: null,
-	lastname: null,
-	godmode: false,
-	Human: function(fname,lname) {
-		this.firstname = fname;
-		this.lastname = lname;
+	TableView: function(list) {
+		this.list = list;
 	},
-	kill: function(human) {
-		if (human.getGodmode()) {
-			Throw(new StillAliveException(human));
+
+	render: function() {
+		for (var i = 0; i < this.list.length; i++) {
+			this.addViews("&lt;li&gt;&lt;span&gt;Name&lt;/span&gt;&lt;span&gt;$$&lt;/span&gt;&lt;/li&gt;", this.list[i].name);
+		}
+		this.addEvent('li > span', 'onclick', 'nameClickEvent');
+	},
+
+	handleEvents: function(evt, name) {
+		if (name === "nameClickEvent") {
+			alert('table row is clicked');
 		}
 	}
+	
 });
-
-// Main
-var killer = new Human("Tony", "Soprano");
-var victim = new Human("John", "Smith");
-victim.setGodmode(true);
-
-// register exception events by exception type
-Catch('StillAliveException', function(ex) {
-	/* Handle still alive exception */
-});
-
-killer.kill(victim);
+						</code>
+					</pre>
+					<div class="explenation">
+						With addViews method you can build any type of UI component that you desire. 
+					</div>
+					<pre>
+						<code>
+render: function() {
+	
+	this.addViews('&lt;div class="row" &gt;&lt;span&gt;$$&lt;/span&gt;&lt;span&gt;$$&lt;/span&gt;&lt;span&gt;$$&lt;/span&gt;&lt;&lt;span&gt;$$&lt;/span&gt;/div&gt;',
+		myModel.getId(),
+		myModel.getName(),
+		myModel.getLabel(),
+		new PictureView()
+	);
+}
 						</code>
 					</pre>
 					<h2>Automatic setter and getter generator</h2>
@@ -232,6 +240,51 @@ Class("Car",{
 		this.stop();
 	}
 });
+						</code>
+					</pre>
+					<h2>Exception Handling</h2>
+					<div class="explenation">
+						StackJS supports exceptions and manage your application call stack.
+						<br>
+						In case of an exception, a full stack trace will be printed to the browser console.
+					</div>
+					<pre>
+						<code>
+// Define new exception
+Class("StillAliveException::Exception", {
+	human: null,
+	StillAliveException: function(human) {
+		this.human = human;
+		this.message = "Human is still alive";
+	}
+});
+
+Class("Human", {
+	firstname: null,
+	lastname: null,
+	godmode: false,
+	Human: function(fname,lname) {
+		this.firstname = fname;
+		this.lastname = lname;
+	},
+	kill: function(human) {
+		if (human.getGodmode()) {
+			Throw(new StillAliveException(human));
+		}
+	}
+});
+
+// Main
+var killer = new Human("Tony", "Soprano");
+var victim = new Human("John", "Smith");
+victim.setGodmode(true);
+
+// register exception events by exception type
+Catch('StillAliveException', function(ex) {
+	/* Handle still alive exception */
+});
+
+killer.kill(victim);
 						</code>
 					</pre>
 				</div>
@@ -652,6 +705,40 @@ Class('TableViewController', {
 					</div>
 				</div>
 <!-- *******************************************************************************************************--> 
+<!-- 											Feedback 													-->
+<!-- *******************************************************************************************************-->
+<!-- 				<div class="container content" id="feedback">
+					<h2><p align="left">Your Feedback...</p></h2>
+					<p align="left">
+						<div class="explenation">
+							Your feedback is extremely important!
+						</div>
+					</p>
+					<p align="left">
+						<input id="feedbackName" type="text" placeholder="Your name..."></input>
+					</p>
+					<p align="left">
+						<textarea id="feedbackText" placeholder="Your feedback..."></textarea>
+					</p>
+					<p align="right">
+						<button class="btn btn-primary" type="submit" onclick="website.sendFeedback()">
+						  Send
+						</button>
+					</p>
+					<div class="modal hide" id="feedback-modal">
+					  <div class="modal-header">
+					    <button type="button" class="close" data-dismiss="modal">×</button>
+					    <div>Thank you!</div>
+					  </div>
+					  <div class="modal-body">
+					    Your feedback has been sent.
+					  </div>
+					  <div class="modal-footer">
+					    <a href="#" class="btn" data-dismiss="modal">Close</a>
+					  </div>
+					</div>
+				</div> -->
+<!-- *******************************************************************************************************--> 
 <!-- 											editor		 												-->
 <!-- *******************************************************************************************************-->
 				<div class="container content" id="editor">
@@ -779,7 +866,7 @@ human.talk();
 							</div>
 						</div>
 						<div class="method">
-							<div class="title">function addEvent(selector, eventType, eventName)</div>
+							<div class="title">function addEvent(selector, eventType, eventName, preventDefault (boolean))</div>
 							<div class="description">
 								The addEvent method will add a new dom event.
 								<br>

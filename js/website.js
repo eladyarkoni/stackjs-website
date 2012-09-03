@@ -4,6 +4,18 @@
 		myCodeMirror: null,
 		currentPageElement: null,
 
+		// sendFeedback: function() {
+		// 	var name = $('#feedbackName').val();
+		// 	var text = $('#feedbackText').val();
+		// 	// create new issue in github
+		// 	var str = 'http://mail.google.com/mail/?view=cm&fs=1'+
+  //             '&to=' + "eladyarkoni@gmail.com" +
+  //             '&su=' + "StackJS: New feedback from: " + name +
+  //             '&body=' + text +
+  //             '&ui=1';
+  //           location.href = str;
+		// },
+
 		playCode: function() {
 			var scriptElem = $('<script type="text/javascript" ></script>');
 			var code = "window['executeCode'] = function() { var scriptOutput = ''; var out = function(str){ scriptOutput += str; };" + this.myCodeMirror.getValue() + " return scriptOutput; }";
