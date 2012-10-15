@@ -113,7 +113,7 @@ newDoctor.checkPatient(newPatient);
 						<br>
 						<h2>StackJS Versions</h2>
 						<ul>
-							<li>StackJS <a href="https://github.com/eladyarkoni/stackjs-website/tree/master/lib">Version 0.3</a> is available
+							<li>StackJS <a href="https://github.com/eladyarkoni/stackjs-website/tree/master/lib">Version 0.4</a> is available
 							</li>
 						</ul>
 				</div>
@@ -171,6 +171,29 @@ render: function() {
 		new PictureView()
 	);
 }
+						</code>
+					</pre>
+					<div class="explenation">
+						The StackJS View object lets you link elements inside the view with the view data members by using Outlets:
+					</div>
+					<pre>
+						<code>
+Class('MyView::View', {
+	
+	nameTextBoxOutlet: null,
+
+	render: function() {
+		
+		this.addViews('&lt;form &gt;$$&lt;/form&gt;',
+			'&lt;input type="text" outlet="nameTextBoxOutlet" &gt; &lt;/input &gt;'
+		);
+	},
+
+	getInputText: function() {
+		return this.nameTextBoxOutlet.value;
+	}
+	
+});
 						</code>
 					</pre>
 					<h2>Automatic setter and getter generator</h2>
@@ -793,6 +816,7 @@ human.talk();
 				<div class="well sidebar-nav">
 		            <ul class="nav nav-list">
 		              <li class="nav-header">Web Application API</li>
+		              <li><a href="#api/defaultobject">Default Object</a></li>
 		              <li><a href="#api/view">View</a></li>
 		              <li><a href="#api/viewport">Viewport</a></li>
 		            </ul>
@@ -800,6 +824,50 @@ human.talk();
 			</div>
 			<div class="span9">
 				<div class="well api">
+					<div class="class">
+						<a name="api/defaultobject" class="title">The Default Object Class</a>
+						<div class="description">
+							The Default object class called 'STObject' and each object in stackJS derived from it.
+						</div>
+						<div class="method">
+							<div class="title">this.delegate</div>
+							<div class="description">
+								Holds the delegate class.
+							</div>
+						</div>
+						<div class="method">
+							<div class="title">function isExtends(classStr)</div>
+							<div class="description">
+								returns true if the object extends the classname: classStr 
+							</div>
+						</div>
+						<div class="method">
+							<div class="title">function callDelegate(methodName, params)</div>
+							<div class="description">
+								call delegate method with params array.
+								<br>
+								Example: this.callDelegate('didClassChanged', [param1, param2...]); 
+							</div>
+						</div>
+						<div class="method">
+							<div class="title">function clone()</div>
+							<div class="description">
+								returns a copy of the object. 
+							</div>
+						</div>
+						<div class="method">
+							<div class="title">function setTimeout(callback, milliseconds)</div>
+							<div class="description">
+								The javascript setTimeout method with the object context.
+							</div>
+						</div>
+						<div class="method">
+							<div class="title">function setInterval(callback, milliseconds)</div>
+							<div class="description">
+								The javascript setInterval method with the object context.
+							</div>
+						</div>
+					</div>
 					<div class="class">
 						<a name="api/view" class="title">The View Class</a>
 						<div class="description">
@@ -830,9 +898,15 @@ human.talk();
 							</div>
 						</div>
 						<div class="method">
+							<div class="title">function getView(selector)</div>
+							<div class="description">
+								The getView method returns a single element from the view root element by giving a query selector string.
+							</div>
+						</div>
+						<div class="method">
 							<div class="title">function getViews(selector)</div>
 							<div class="description">
-								The getViews method returns element from the view root element by giving a query selector string.
+								The getViews method returns elements array from the view root element by giving a query selector string.
 							</div>
 						</div>
 						<div class="method">
@@ -872,6 +946,12 @@ human.talk();
 								<br>
 								The selector parameter selects the element which gets the event, the eventType parameter represents the dom event name like: onclick, onmousedown, etc...
 								and the eventName parameter represents a unique name which will be sent to the view event handler. 
+							</div>
+						</div>
+						<div class="method">
+							<div class="title">function removeEvent(selector, eventType)</div>
+							<div class="description">
+								Remove event listener by selector and eventType.
 							</div>
 						</div>
 						<div class="method">
@@ -930,6 +1010,12 @@ human.talk();
 							<div class="title">function willTerminate() [Delegate method]</div>
 							<div class="description">
 								The willTerminate delegate method is called when dom event onunload is raised. 
+							</div>
+						</div>
+						<div class="method">
+							<div class="title">function didHashChanged() [Delegate method]</div>
+							<div class="description">
+								The didHashChanged delegate method is called when url hash is changed. 
 							</div>
 						</div>
 					</div>

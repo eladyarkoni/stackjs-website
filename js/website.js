@@ -124,7 +124,7 @@
 				$(".boilerplate-container").append(downloadButton);
 				var code = $("<pre/>").append("<code />");
 				downloadButton.mouseup(function(){
-					_self.downloadFile('stackjs.min.js',code)
+					_self.downloadFile('stackjs.min.js',code);
 				});
 				code.text(data);
 				$(".boilerplate-container").append(code);
